@@ -13,7 +13,10 @@ echo "******************************"
 if [ -f u-boot.stm32 ];then
     rm u-boot.stm32
 fi
+
 make $UBOOT_DEFCONFIG O=${BUILD_OUTPUT_PATH} -j${N}
+echo "******************************"
+
 # creat uboot.stm32
 runcmd "make all O=${BUILD_OUTPUT_PATH} DEVICE_TREE=stm32mp157d-atk -j${N}"
 # copy uboot.stm32 to current folder
