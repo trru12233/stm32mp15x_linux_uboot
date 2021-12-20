@@ -1,20 +1,25 @@
 #!/bin/bash
-
-#判断交叉编译工具链是否存在，使用arm-poky-linux-gnueabi- (gcc-9.3.0)
-if [ ! -e "/opt/st/stm32mp1/3.1-snapshot/environment-setup-cortexa7t2hf-neon-vfpv4-ostl-linux-gnueabi" ]; then
-    echo ""
-    echo "请先安装正点原子的st-example-image-qtwayland-openstlinux-weston-stm32mp1-x86_64-toolchain-3.1-snapshot.sh"
-    echo ""
+if [ -f envsetup.sh ];then
+    source envsetup.sh
+else
+    echo "cannot find envsetup.sh"
+    exit 0
 fi
+echo "******************************"
+echo "KERNEL_DEFCONFIG=$UBOOT_DEFCONFIG"
+echo "BUILD_OUTPUT_PATH=$BUILD_OUTPUT_PATH"
+echo "******************************"
 
-#使用Yocto SDK里的GCC 9.3.0交叉编译器编译出厂Linux源码,可不用指定ARCH等，直接执行Make
-source /opt/st/stm32mp1/3.1-snapshot/environment-setup-cortexa7t2hf-neon-vfpv4-ostl-linux-gnueabi
+if [ -f u-boot.stm32 ];then
+    rm u-boot.stm32
+fi
+make $UBOOT_DEFCONFIG O=${BUILD_OUTPUT_PATH} -j${N}
+# creat uboot.stm32
+runcmd "make all O=${BUILD_OUTPUT_PATH} DEVICE_TREE=stm32mp157d-atk -j${N}"
+# copy uboot.stm32 to current folder
+cpfiles ${BUILD_OUTPUT_PATH}/u-boot.stm32 ./
 
-#清除编译文件
-make distclean
-
-#配置defconfig文件
-make stm32mp157d_atk_defconfig
-
-#开始编译uboot.stm32
-make DEVICE_TREE=stm32mp157d-atk all  
+echo "******************************"
+echo "       build uboot OK !!!"
+echo "******************************"
+echo ">>File: u-boot.stm32= `ls -lh u-boot.stm32 | awk '{print $5}'`"

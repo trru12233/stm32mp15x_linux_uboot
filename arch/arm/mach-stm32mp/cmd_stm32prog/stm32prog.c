@@ -517,6 +517,7 @@ static int __init part_cmp(void *priv, struct list_head *a, struct list_head *b)
 		return parta->addr > partb->addr ? 1 : -1;
 }
 
+#ifdef CONFIG_MTD
 static void get_mtd_by_target(char *string, enum stm32prog_target target,
 			      int dev_id)
 {
@@ -538,6 +539,7 @@ static void get_mtd_by_target(char *string, enum stm32prog_target target,
 	}
 	sprintf(string, "%s%d", dev_str, dev_id);
 }
+#endif
 
 static int init_device(struct stm32prog_data *data,
 		       struct stm32prog_dev_t *dev)

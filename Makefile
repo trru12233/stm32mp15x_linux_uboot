@@ -1994,6 +1994,7 @@ distclean: mrproper
 		-o -name '*.pyc' \) \
 		-type f -print | xargs rm -f
 	@rm -f boards.cfg CHANGELOG
+	@rm -rf out/
 
 backup:
 	F=`basename $(srctree)` ; cd .. ; \

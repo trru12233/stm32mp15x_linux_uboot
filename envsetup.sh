@@ -37,6 +37,4 @@ function cpfiles()
 }
 export N=$(( ($(cat /proc/cpuinfo |grep 'processor'|wc -l)) ))
 export BUILD_OUTPUT_PATH=$(pwd)/out
-export TARGET_MODULES_PATH=${BUILD_OUTPUT_PATH}/_modules
-export TARGET_BOOT_PATH=${BUILD_OUTPUT_PATH}/_boot
 export UBOOT_DEFCONFIG=stm32mp1_mmc_defconfig

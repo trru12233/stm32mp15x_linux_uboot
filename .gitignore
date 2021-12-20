@@ -95,4 +95,6 @@ GTAGS
 
 /oe-*
 bitbake-cookerdaemon.log
+
 !.vscode
+out/

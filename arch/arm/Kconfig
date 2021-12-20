@@ -1587,6 +1587,14 @@ config ARCH_STM32MP
 	  chain.
 	  SPL is the unsecure FSBL for the basic boot chain.
 
+config STM32MP_MMC_QUICKBOOT
+	bool "MMC QuickBoot Mode"
+	default n
+	depends on ARCH_STM32MP
+	depends on DM_MMC
+	help
+	  Qucikboot mode, Storage is eMMC
+
 config ARCH_ROCKCHIP
 	bool "Support Rockchip SoCs"
 	select BLK
