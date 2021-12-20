@@ -3,7 +3,7 @@
 # Copyright (C) 2020, STMicroelectronics - All Rights Reserved
 #
 
-obj-y += cmd_stm32prog.o
+obj-$(CONFIG_USB_GADGET) += cmd_stm32prog.o
 obj-y += stm32prog.o
 obj-y += stm32prog_serial.o
-obj-y += stm32prog_usb.o
+obj-$(CONFIG_USB_GADGET) += stm32prog_usb.o
